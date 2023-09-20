@@ -9789,11 +9789,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Documents\\Visual Studio 2022\\Proyects\\JB_Formulacion\\JB_Formulacion.csproj",
+      "projectUniqueName": "C:\\Users\\user\\Documents\\GitHub\\FormulacionJB\\JB_Formulacion\\JB_Formulacion.csproj",
       "projectName": "JB_Formulacion",
-      "projectPath": "C:\\Users\\user\\Documents\\Visual Studio 2022\\Proyects\\JB_Formulacion\\JB_Formulacion.csproj",
+      "projectPath": "C:\\Users\\user\\Documents\\GitHub\\FormulacionJB\\JB_Formulacion\\JB_Formulacion.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Documents\\Visual Studio 2022\\Proyects\\JB_Formulacion\\obj\\",
+      "outputPath": "C:\\Users\\user\\Documents\\GitHub\\FormulacionJB\\JB_Formulacion\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -9870,7 +9870,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -12,6 +12,6 @@ namespace JB_Formulacion.Models
     {
         [JsonProperty("Lote")]
         public string NombreLote { get; set; }
-        public string Cantidad { get; set; }
+        public double Cantidad { get; set; }
     }
 }

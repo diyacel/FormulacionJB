@@ -9,6 +9,10 @@ namespace JB_Formulacion.Models
 {
     public class Componente
     {
+        public Componente()
+        {
+            CantidadesPorLote=new List<Lote>();
+        }
         public string UnidadMedida { get; set; }
         public double CantidadTotal { get; set; }
         public bool RequiereRepesaje { get; set; }

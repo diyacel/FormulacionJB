@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace JB_Formulacion.Models
 {
-    public class LoteBalanzas
+    public class LoteBalanzas: Lote
     {
-        public string NombreLote { get; set; }
-        public double CantidadEstimada { get; set; }
         public double CantidadPesada { get; set; }
     }
 }

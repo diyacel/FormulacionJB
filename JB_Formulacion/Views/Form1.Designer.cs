@@ -40,7 +40,9 @@
             btnLogin = new Button();
             txtNombre = new TextBox();
             txtContraseña = new TextBox();
-            button1 = new Button();
+            btnCompoentesBalanzas = new Button();
+            btnNumeroComponente = new Button();
+            txtNumComponente = new TextBox();
             SuspendLayout();
             // 
             // btnOfLiberadas
@@ -140,6 +142,7 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(125, 27);
             txtNombre.TabIndex = 10;
+            txtNombre.Text = "prueba";
             // 
             // txtContraseña
             // 
@@ -147,23 +150,43 @@
             txtContraseña.Name = "txtContraseña";
             txtContraseña.Size = new Size(125, 27);
             txtContraseña.TabIndex = 11;
+            txtContraseña.Text = "prueba";
             // 
-            // button1
+            // btnCompoentesBalanzas
             // 
-            button1.Location = new Point(463, 406);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 12;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnCompoentesBalanzas.Location = new Point(463, 406);
+            btnCompoentesBalanzas.Name = "btnCompoentesBalanzas";
+            btnCompoentesBalanzas.Size = new Size(225, 29);
+            btnCompoentesBalanzas.TabIndex = 12;
+            btnCompoentesBalanzas.Text = "Componentes Balanzas";
+            btnCompoentesBalanzas.UseVisualStyleBackColor = true;
+            btnCompoentesBalanzas.Click += button1_Click;
+            // 
+            // btnNumeroComponente
+            // 
+            btnNumeroComponente.Location = new Point(463, 454);
+            btnNumeroComponente.Name = "btnNumeroComponente";
+            btnNumeroComponente.Size = new Size(225, 29);
+            btnNumeroComponente.TabIndex = 13;
+            btnNumeroComponente.Text = "Numero de componente";
+            btnNumeroComponente.UseVisualStyleBackColor = true;
+            btnNumeroComponente.Click += btnNumeroComponente_Click;
+            // 
+            // txtNumComponente
+            // 
+            txtNumComponente.Location = new Point(463, 489);
+            txtNumComponente.Name = "txtNumComponente";
+            txtNumComponente.Size = new Size(125, 27);
+            txtNumComponente.TabIndex = 14;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1153, 572);
-            Controls.Add(button1);
+            Controls.Add(txtNumComponente);
+            Controls.Add(btnNumeroComponente);
+            Controls.Add(btnCompoentesBalanzas);
             Controls.Add(txtContraseña);
             Controls.Add(txtNombre);
             Controls.Add(btnLogin);
@@ -196,6 +219,8 @@
         private Button btnLogin;
         private TextBox txtNombre;
         private TextBox txtContraseña;
-        private Button button1;
+        private Button btnCompoentesBalanzas;
+        private Button btnNumeroComponente;
+        private TextBox txtNumComponente;
     }
 }

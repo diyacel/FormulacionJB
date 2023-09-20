@@ -6,17 +6,12 @@ using System.Threading.Tasks;
 
 namespace JB_Formulacion.Models
 {
-    public class ComponenteBalanzas
+    public class ComponenteBalanzas: Componente
     {
-        public string CodigoArticulo { get; set; }
-        public List<LoteBalanzas>Lotes { get; set; }
-        public string UnidadMedida { get; set; }
-        public string Descripcion { get; set; }
-        public Balanza balanza { get; set; }
-
-
-        
-
-
+        public Balanza Balanza { get; set; }
+        public double CantidadLote { get; set; }
+        public double CantidadPesadaLote {  get; set; }
+        public string NombreLote {  get; set; }
+        public string Estado { get; set; }
     }
 }

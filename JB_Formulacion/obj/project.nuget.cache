@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6dFethEJwnFeNHnqJb0Yq2BRWxknUoaWND/YTo+kE0ly98C3T8VLHjfQ2kENVZiQ2L9+dpIF9ZNN+6S2Cr674w==",
+  "dgSpecHash": "TstSopKzfQJai87yeMsZLYaIXlrvWcIav3NT4l2txSI6FYboYO+EdVqR/xGPkUsvRumbNmDVZH/k37guOiKQHg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\Documents\\Visual Studio 2022\\Proyects\\JB_Formulacion\\JB_Formulacion.csproj",
+  "projectFilePath": "C:\\Users\\user\\Documents\\GitHub\\FormulacionJB\\JB_Formulacion\\JB_Formulacion.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

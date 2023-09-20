@@ -20,9 +20,11 @@ namespace JB_Formulacion.Helpers
     {
 
         ApiController apiController;
+        OrdenComponentes ordenActualComponentes;
         public BalanceOptions()
         {
             apiController = new ApiController();
+            ordenActualComponentes = new OrdenComponentes();
         }
 
         /// <summary>
@@ -87,15 +89,15 @@ namespace JB_Formulacion.Helpers
                     }
                 }
 
-                respuesta = "OK;" + contador + ";" + "vacío;" + orden.NumOrdenFabricacion + ";" + orden.Descripcion + ";" +
-                    "vacío;" + "vacío;" + orden.BodegaDesde + ";" + orden.BodegaHasta + ";";
+                respuesta = "OK;" + contador + ";" + " ;" + orden.NumOrdenFabricacion + ";" + orden.Descripcion + ";" +
+                    " ;" + " ;" + orden.BodegaDesde + ";" + orden.BodegaHasta + ";";
 
                 return respuesta;
             }
 
 
         }
-        public async Task<OrdenComponentes> DevolverMPsPorOF(string of)
+        public async Task CargarMPsPorOF(string of)
         {
             OrdenComponentes orden = new OrdenComponentes();
             Reply reply = new Reply();
@@ -103,29 +105,37 @@ namespace JB_Formulacion.Helpers
 
             orden = (OrdenComponentes)reply.Data;
 
-            return orden;
+            ordenActualComponentes = orden;
+            
 
         }
 
-        public async Task<string>DevolverMPActual(string NumMateria,string of)
+        public String DevolverMPActual(string numComponente,string of)
         {
-            OrdenComponentes orden = await DevolverMPsPorOF(of);
-            List<Componente> componentesPendientes=new List<Componente>();
-            List<Componente> componentesPesados = new List<Componente>();
-
-            foreach(Componente componente in orden.Componentes)
+            OrdenComponentes orden = DevolverOrdenBalanzas(of);
+            ComponenteBalanzas comp = new ComponenteBalanzas();
+            int numeroComponentes=orden.Componentes.Count();
+            string respuesta = string.Empty;
+            try
             {
-                if(componente.CantidadPesada==0 || componente.CantidadPesada<componente.CantidadTotal)
+                int numero = int.Parse(numComponente);
+                for (int i = 0; i < numero; i++)
                 {
-                    componentesPendientes.Add(componente);
+                    comp = (ComponenteBalanzas)orden.Componentes[i];
                 }
-                else
-                {
-                    componentesPesados.Add(componente);
-                }
+                respuesta = comp.Descripcion + ";" + comp.CantidadLote + ";" + comp.Balanza.NumeroBalanza + ";" +
+                        comp.CodigoArticulo + ";" + comp.UnidadMedida + ";" + comp.Balanza.ToleranciaMinima + ";" +
+                        comp.Balanza.ToleranciaMaxima + ";" + comp.NombreLote;
+            }catch (Exception ex)
+            {
+                int intValue = 21;
+                respuesta= char.ConvertFromUtf32(intValue) + ex.Message;
             }
+            
 
-            return null;
+            return respuesta;
+            
+
         }
         public async Task<string> DevolverGruposDirectorioActivo(string usuario, string contraseña)
         {
@@ -178,10 +188,24 @@ namespace JB_Formulacion.Helpers
             int numeroLotes=componente.CantidadesPorLote.Count;
             return false;
         }
-        public Balanza CategorizarPeso(Componente componente)
+        public Balanza EscogerBalanza(Componente componente)
         {
-            Balanza balanza=new Balanza();
-            if(componente.CantidadTotal>Settings1.Default.Bal1_Pmin && componente.CantidadTotal<Settings1.Default.Bal1_Pmax)
+            Balanza balanza = new Balanza();
+            double cantidadConvertida = 0;
+            switch (componente.UnidadMedida)
+            {
+                case "g":
+                    cantidadConvertida = UnitConverter.ConvertGToKg(componente.CantidadTotal); 
+                    break;
+                case "mg":
+                    cantidadConvertida=UnitConverter.ConvertMgToKg(componente.CantidadTotal);
+                    break;
+                case "kg":
+                    cantidadConvertida = componente.CantidadTotal;
+                    break;
+            }
+            
+            if (cantidadConvertida > Settings1.Default.Bal1_Pmin && cantidadConvertida < Settings1.Default.Bal1_Pmax)
             {
                 balanza.NumeroBalanza = 1;
                 balanza.PesoMinimo = Settings1.Default.Bal1_Pmin;
@@ -189,7 +213,7 @@ namespace JB_Formulacion.Helpers
                 balanza.ToleranciaMinima = Settings1.Default.Bal1_Tolmin;
                 balanza.ToleranciaMaxima = Settings1.Default.Bal1_Tolmax;
             }
-            else if(componente.CantidadTotal>Settings1.Default.Bal2_Pmin && componente.CantidadTotal<Settings1.Default.Bal2_Pmax)
+            else if(cantidadConvertida>Settings1.Default.Bal2_Pmin && cantidadConvertida<Settings1.Default.Bal2_Pmax)
             {
                 balanza.NumeroBalanza = 2;
                 balanza.PesoMinimo = Settings1.Default.Bal2_Pmin;
@@ -197,7 +221,7 @@ namespace JB_Formulacion.Helpers
                 balanza.ToleranciaMinima=Settings1.Default.Bal2_Tolmin;
                 balanza.ToleranciaMaxima = Settings1.Default.Bal2_Tolmax;
             }
-            else if(componente.CantidadTotal>Settings1.Default.Bal3_Pmin && componente.CantidadTotal<Settings1.Default.Bal3_Pmax)
+            else if(cantidadConvertida>Settings1.Default.Bal3_Pmin && cantidadConvertida<Settings1.Default.Bal3_Pmax)
             {
                 balanza.NumeroBalanza = 3;
                 balanza.PesoMinimo = Settings1.Default.Bal3_Pmin;
@@ -205,7 +229,7 @@ namespace JB_Formulacion.Helpers
                 balanza.ToleranciaMinima = Settings1.Default.Bal3_Tolmin;
                 balanza.ToleranciaMaxima=Settings1.Default.Bal3_Tolmax;
             }
-            else if(componente.CantidadTotal>Settings1.Default.Bal4_Pmin && componente.CantidadTotal<Settings1.Default.Bal3_Pmax)
+            else if(cantidadConvertida>Settings1.Default.Bal4_Pmin && cantidadConvertida<Settings1.Default.Bal3_Pmax)
             {
                 balanza.NumeroBalanza = 4;
                 balanza.PesoMinimo=Settings1.Default.Bal4_Pmin;
@@ -217,24 +241,111 @@ namespace JB_Formulacion.Helpers
             return balanza;
         }
 
-        public void pasarDatosBalanzas(OrdenComponentes ordenComponentes)
+        public OrdenComponentes DevolverOrdenBalanzas(string of)
         {
-            OrdenComponentesBalanzas ordenBalanzas=new OrdenComponentesBalanzas();
-            List<ComponenteBalanzas> componentesBalanzas=new List<ComponenteBalanzas>();
-            ordenBalanzas.IdOf=ordenComponentes.IdOf;
-            ordenBalanzas.NumOrdenFabricacion = ordenComponentes.NumOrdenFabricacion;
-            ordenBalanzas.CodArticulo = ordenComponentes.CodArticulo;
-            ordenBalanzas.Descripcion = ordenComponentes.Descripcion;
-            ordenBalanzas.BodegaDesde = ordenComponentes.BodegaDesde;
-            ordenBalanzas.BodegaHasta = ordenComponentes.BodegaHasta;
-            foreach(Componente componente in ordenComponentes.Componentes)
+            //Recibir el componente con el número de OF
+            OrdenComponentes orden =ordenActualComponentes;
+            //Crear la orden balanzas con sus campos
+            OrdenComponentes ordenBalanzas = new OrdenComponentes();
+            ordenBalanzas.NumOrdenFabricacion = orden.NumOrdenFabricacion;
+            ordenBalanzas.IdOf = orden.IdOf;
+            ordenBalanzas.Descripcion = orden.Descripcion;
+            ordenBalanzas.BodegaDesde = orden.BodegaDesde;
+            ordenBalanzas.BodegaHasta = orden.BodegaHasta;
+
+
+            //Asignar los componentes balanzas y lote balanzas
+            foreach (Componente componente in orden.Componentes)
             {
-                ComponenteBalanzas componenteBalanzas=new ComponenteBalanzas();
-                componenteBalanzas.CodigoArticulo = componente.CodigoArticulo;
-                componenteBalanzas.UnidadMedida = componente.UnidadMedida;
-                componenteBalanzas.Descripcion=componente.Descripcion;
+                string res = CategorizarPeso(componente);
+                MessageBox.Show(res);
+                if (componente.CantidadPesada == 0)
+                {
+                   
+                    if (componente.CantidadesPorLote is not null)
+                    {
+                        foreach (Lote lote in componente.CantidadesPorLote)
+                        {
+                            ComponenteBalanzas componenteBalanzas = new ComponenteBalanzas();
+                            componenteBalanzas.UnidadMedida = componente.UnidadMedida;
+                            componenteBalanzas.Descripcion = componente.Descripcion;
+                            componenteBalanzas.CodigoArticulo = componente.CodigoArticulo;
+                            componenteBalanzas.Balanza = EscogerBalanza(componente);
+                            componenteBalanzas.NombreLote = lote.NombreLote;
+                            componenteBalanzas.CantidadLote = lote.Cantidad;
+                            componenteBalanzas.CantidadPesadaLote = 0;
+                            ordenBalanzas.Componentes.Add(componenteBalanzas);
+                        }
+
+                    }
+
+                    
+
+                }
+                else
+                {
+                    int numLotes=componente.CantidadesPorLote.Count();
+                    Balanza balanza = EscogerBalanza(componente);
+
+                    
+                    
+
+                }
+            }
+
+            //Ordenar los componentes balanza según la numeración del código de artículo
+            List<Componente> componentesOrdenados = ordenBalanzas.Componentes.
+                OrderBy(componente => componente.CodigoArticulo).ToList();
+            ordenBalanzas.Componentes = componentesOrdenados;
+
+            return ordenBalanzas;
+        }
+
+        public string CategorizarPeso(Componente componente)
+        {
+            int numeroLotes = componente.CantidadesPorLote.Count();
+            Balanza balanza= EscogerBalanza(componente);
+            double valMax = Math.Round(numeroLotes * componente.CantidadTotal+UnitConverter.ConvertGToKg(balanza.ToleranciaMaxima),2);
+            double valMin = Math.Round(numeroLotes * componente.CantidadTotal-UnitConverter.ConvertGToKg(balanza.ToleranciaMinima),2);
+            if (componente.CantidadPesada<=valMax && componente.CantidadPesada>=valMin)
+            {
+                return "peso en rango";
+                //estado: pesado
+                // repartir cantidadPesada entre los pesos de cada lote
+            }
+            else if(componente.CantidadPesada!=0 && componente.CantidadPesada<valMin && numeroLotes>1 )
+            {
+                //cantidad del lote 1
+                //cantidad del lote 2
+                //restar cantidad pesada - lote
+                //estado: pendiente
+
+                foreach (Lote lote in componente.CantidadesPorLote)
+                {
+                    double diferenciaActual = Math.Abs(componente.CantidadPesada - lote.Cantidad);
+                    double diferenciaMasCercana = Math.Abs(valorRecibido - valorMasCercano);
+
+                    if (diferenciaActual < diferenciaMasCercana)
+                        valorMasCercano = valor;
+                }
+
+
+                return "algo ya se peso";
+              
+            }
+            else if(componente.CantidadPesada==0)
+            {
+                //pesos de cada lote =0
+                //estado: pendiente
+                return "nada pesado";
+            }
+            else
+            {
+                return "";
             }
         }
+
+
 
 
 

@@ -49,12 +49,14 @@ namespace JB_Formulacion.Helper
                 //usuario, contraseña, número de orden de fabricación
                 case "QF":
                     respuesta = await options.DevolverCantidadMPsPorOF(trama_datos[3]);
+                    await options.CargarMPsPorOF(trama_datos[3]);
                     Echo(respuesta, encoder, clientStream);
                     break;
 
                 case "QI":
-
-                break;
+                    respuesta = options.DevolverMPActual(trama_datos[1], trama_datos[2]);
+                    Echo(respuesta, encoder, clientStream);
+                    break;
 
                 case "QT":
 
