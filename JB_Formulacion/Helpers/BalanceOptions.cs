@@ -257,8 +257,7 @@ namespace JB_Formulacion.Helpers
             //Asignar los componentes balanzas y lote balanzas
             foreach (Componente componente in orden.Componentes)
             {
-                string res = CategorizarPeso(componente);
-                MessageBox.Show(res);
+
                 if (componente.CantidadPesada == 0)
                 {
                    
@@ -267,6 +266,7 @@ namespace JB_Formulacion.Helpers
                         foreach (Lote lote in componente.CantidadesPorLote)
                         {
                             ComponenteBalanzas componenteBalanzas = new ComponenteBalanzas();
+                            CategorizarPeso(componente,componenteBalanzas);
                             componenteBalanzas.UnidadMedida = componente.UnidadMedida;
                             componenteBalanzas.Descripcion = componente.Descripcion;
                             componenteBalanzas.CodigoArticulo = componente.CodigoArticulo;
@@ -301,15 +301,18 @@ namespace JB_Formulacion.Helpers
             return ordenBalanzas;
         }
 
-        public string CategorizarPeso(Componente componente)
+        public void CategorizarPeso(Componente componente, ComponenteBalanzas componenteBalanzas)
         {
+
+            //Aqui se asigna estado a la materia prima y las cantidades pesadas por lote
+
             int numeroLotes = componente.CantidadesPorLote.Count();
             Balanza balanza= EscogerBalanza(componente);
             double valMax = Math.Round(numeroLotes * componente.CantidadTotal+UnitConverter.ConvertGToKg(balanza.ToleranciaMaxima),2);
             double valMin = Math.Round(numeroLotes * componente.CantidadTotal-UnitConverter.ConvertGToKg(balanza.ToleranciaMinima),2);
             if (componente.CantidadPesada<=valMax && componente.CantidadPesada>=valMin)
             {
-                return "peso en rango";
+                //return "peso en rango";
                 //estado: pesado
                 // repartir cantidadPesada entre los pesos de cada lote
             }
@@ -319,29 +322,29 @@ namespace JB_Formulacion.Helpers
                 //cantidad del lote 2
                 //restar cantidad pesada - lote
                 //estado: pendiente
-
+                double cantidadMasCercana = componente.CantidadesPorLote[0].Cantidad;
                 foreach (Lote lote in componente.CantidadesPorLote)
                 {
                     double diferenciaActual = Math.Abs(componente.CantidadPesada - lote.Cantidad);
-                    double diferenciaMasCercana = Math.Abs(valorRecibido - valorMasCercano);
+                    double diferenciaMasCercana = Math.Abs(componente.CantidadPesada - cantidadMasCercana);
 
                     if (diferenciaActual < diferenciaMasCercana)
-                        valorMasCercano = valor;
+                        cantidadMasCercana = lote.Cantidad;
                 }
 
 
-                return "algo ya se peso";
+                //return "algo ya se peso";
               
             }
             else if(componente.CantidadPesada==0)
             {
                 //pesos de cada lote =0
                 //estado: pendiente
-                return "nada pesado";
+                //return "nada pesado";
             }
             else
             {
-                return "";
+                //return "";
             }
         }
 
