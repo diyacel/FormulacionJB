@@ -1,6 +1,5 @@
 ﻿using JB_Formulacion.Helper;
 using JB_Formulacion.Models;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -14,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace JB_Formulacion.Controllers
 {
-    public class ApiController: Controller
+    public class ApiController
     {
         string baseURL = "http://services.jbp.com.ec/api";
         string baseURLTest= "http://test.jbp.com.ec/api";

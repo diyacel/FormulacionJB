@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JB_Formulacion.Models
 {
-    public class LoteBalanzas: Lote
+    public class LoteBalanzas: CantidadPorLote
     {
         public double CantidadPesada { get; set; }
     }

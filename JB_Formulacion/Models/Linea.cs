@@ -9,6 +9,6 @@ namespace JB_Formulacion.Models
     public class Linea
     {
         public string CodArticulo { get; set; }
-        public List<Lote> Lotes { get; set; }
+        public List<CantidadPorLote> Lotes { get; set; }
     }
 }

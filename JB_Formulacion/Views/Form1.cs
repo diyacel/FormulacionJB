@@ -3,6 +3,7 @@ using JB_Formulacion.Controllers;
 using JB_Formulacion.Helper;
 using JB_Formulacion.Helpers;
 using JB_Formulacion.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -66,9 +67,9 @@ namespace JB_Formulacion
             foreach (Componente componente in orden.Componentes)
             {
                 listBox1.Items.Add(componente.CodigoArticulo.ToString() + " UNIDAD: " + componente.UnidadMedida + " " + componente.Descripcion.ToString());
-                foreach (Lote lote in componente.CantidadesPorLote)
+                foreach (CantidadPorLote lote in componente.CantidadesPorLote)
                 {
-                    listBox1.Items.Add(lote.NombreLote.ToString() + " " + lote.Cantidad.ToString());
+                    listBox1.Items.Add(lote.Lote.ToString() + " " + lote.Cantidad.ToString());
                 }
                 listBox1.Items.Add(componente.CantidadPesada.ToString());
                 balanza = options.EscogerBalanza(componente);
@@ -92,11 +93,11 @@ namespace JB_Formulacion
                     new Linea()
                     {
                         CodArticulo="11000064",
-                        Lotes=new List<Lote>()
+                        Lotes=new List<CantidadPorLote>()
                         {
-                            new Lote()
+                            new CantidadPorLote()
                             {
-                                NombreLote="JB-221125150335",
+                                Lote="JB-221125150335",
                                 Cantidad=36.93
                             }
 
@@ -175,7 +176,7 @@ namespace JB_Formulacion
                 listBox1.Items.Add("LOTE: " + componente.NombreLote + " CANTIDAD: " + componente.CantidadLote + " PESADA: " + componente.CantidadPesadaLote);
                 //foreach (LoteBalanzas lote in componente.CantidadesPorLote)
                 //{
-                //    listBox1.Items.Add("NOMBRE:" + lote.NombreLote.ToString() + " CANTIDAD:" + lote.Cantidad.ToString() + " CANTIDAD PESADA: " + lote.CantidadPesada.ToString());
+                //    listBox1.Items.Add("NOMBRE:" + lote.Lote.ToString() + " CANTIDAD:" + lote.Cantidad.ToString() + " CANTIDAD PESADA: " + lote.CantidadPesada.ToString());
                 //}
                 // listBox1.Items.Add("NUMERO DE LOTES: " + componente.CantidadesPorLote.Count);
 
@@ -186,8 +187,64 @@ namespace JB_Formulacion
         private async void btnNumeroComponente_Click(object sender, EventArgs e)
         {
             await options.CargarMPsPorOF("10009132");
-            string respuesta= options.DevolverMPActual(txtNumComponente.Text, "10009132");
+            string respuesta = options.DevolverMPActual(txtNumComponente.Text, "10009132");
             MessageBox.Show(respuesta);
+        }
+
+        private async void button1_Click_1(object sender, EventArgs e)
+        {
+            OrdenComponentes orden = new OrdenComponentes();
+            Reply reply = new Reply();
+            reply = await apiController.GetOrdenesConComponentes<OrdenComponentes>(txtNumeroOrden.Text);
+            orden = (OrdenComponentes)reply.Data;
+            MessageBox.Show(reply.StatusCode);
+
+            using (var context = new ApplicationDbContext())
+            {
+                context.Ordenes.Add(orden);
+
+                await context.SaveChangesAsync();
+                MessageBox.Show("guardado exitoso!");
+
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OrdenComponentes orden = new OrdenComponentes();
+            using(var context = new ApplicationDbContext()) 
+            {
+                //orden = context.Ordenes
+                //.Include(o => o.Componentes.Select(c => (c as 'Lotes').CantidadPorLote)
+                //.FirstOrDefault(o => o.IdOf == 41648);
+
+                //var ordenConComponentesYCantidadesLotes = context.Ordenes
+                //.Include(o => o.Componentes.Select(c => c.CantidadesPorLote))
+                //.FirstOrDefault(o => o.IdOf == 41648);
+
+                orden = context.Ordenes
+                .Include(o => o.Componentes)
+                .ThenInclude(l => l.CantidadesPorLote)
+                .FirstOrDefault(o => o.IdOf == 41648);
+            }
+
+            listBox1.Items.Clear();
+            //listBox1.Items.Add(orden.Componentes)
+            foreach (Componente componente in orden.Componentes)
+            {
+                listBox1.Items.Add(componente.CodigoArticulo.ToString() + " UNIDAD: " + componente.UnidadMedida + " " + componente.Descripcion.ToString());
+                foreach (CantidadPorLote lote in componente.CantidadesPorLote)
+                {
+                    listBox1.Items.Add(lote.Lote.ToString() + " " + lote.Cantidad.ToString());
+                }
+                listBox1.Items.Add(componente.CantidadPesada.ToString());
+               // balanza = options.EscogerBalanza(componente);
+               // listBox1.Items.Add("Numero de balanza: " + balanza.NumeroBalanza.ToString());
+                listBox1.Items.Add("Numero de lotes: " + componente.CantidadesPorLote.Count);
+
+
+            }
+
         }
     }
 }

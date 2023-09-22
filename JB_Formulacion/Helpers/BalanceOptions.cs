@@ -1,7 +1,6 @@
 ﻿using JB_Formulacion.Controllers;
 using JB_Formulacion.Helper;
 using JB_Formulacion.Models;
-using Microsoft.AspNetCore.JsonPatch.Internal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -83,7 +82,7 @@ namespace JB_Formulacion.Helpers
                 int contador = 0;
                 foreach (Componente componente in orden.Componentes)
                 {
-                    foreach (Lote lote in componente.CantidadesPorLote)
+                    foreach (CantidadPorLote lote in componente.CantidadesPorLote)
                     {
                         contador += 1;
                     }
@@ -263,7 +262,7 @@ namespace JB_Formulacion.Helpers
                    
                     if (componente.CantidadesPorLote is not null)
                     {
-                        foreach (Lote lote in componente.CantidadesPorLote)
+                        foreach (CantidadPorLote lote in componente.CantidadesPorLote)
                         {
                             ComponenteBalanzas componenteBalanzas = new ComponenteBalanzas();
                             CategorizarPeso(componente,componenteBalanzas);
@@ -271,7 +270,7 @@ namespace JB_Formulacion.Helpers
                             componenteBalanzas.Descripcion = componente.Descripcion;
                             componenteBalanzas.CodigoArticulo = componente.CodigoArticulo;
                             componenteBalanzas.Balanza = EscogerBalanza(componente);
-                            componenteBalanzas.NombreLote = lote.NombreLote;
+                            componenteBalanzas.NombreLote = lote.Lote;
                             componenteBalanzas.CantidadLote = lote.Cantidad;
                             componenteBalanzas.CantidadPesadaLote = 0;
                             ordenBalanzas.Componentes.Add(componenteBalanzas);
@@ -323,7 +322,7 @@ namespace JB_Formulacion.Helpers
                 //restar cantidad pesada - lote
                 //estado: pendiente
                 double cantidadMasCercana = componente.CantidadesPorLote[0].Cantidad;
-                foreach (Lote lote in componente.CantidadesPorLote)
+                foreach (CantidadPorLote lote in componente.CantidadesPorLote)
                 {
                     double diferenciaActual = Math.Abs(componente.CantidadPesada - lote.Cantidad);
                     double diferenciaMasCercana = Math.Abs(componente.CantidadPesada - cantidadMasCercana);
