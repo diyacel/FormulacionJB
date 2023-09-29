@@ -23,17 +23,17 @@ namespace JB_Formulacion
 
         private async void btnOfLiberadas_Click(object sender, EventArgs e)
         {
-            List<OrdenFabricacion> ordenes = new List<OrdenFabricacion>();
-            Reply reply = new Reply();
-            reply = await apiController.GetOrdenesFabricacion<List<OrdenFabricacion>>();
-            ordenes = (List<OrdenFabricacion>)reply.Data;
-            MessageBox.Show(reply.StatusCode);
+            //List<OrdenFabricacion> ordenes = new List<OrdenFabricacion>();
+            //Reply reply = new Reply();
+            //reply = await apiController.GetOrdenesFabricacion<List<OrdenFabricacion>>();
+            //ordenes = (List<OrdenFabricacion>)reply.Data;
+            //MessageBox.Show(reply.StatusCode);
 
-            listBox1.Items.Clear();
-            foreach (OrdenFabricacion orden in ordenes)
-            {
-                listBox1.Items.Add(orden.NumOrdenFabricacion.ToString());
-            }
+            //listBox1.Items.Clear();
+            //foreach (OrdenFabricacion orden in ordenes)
+            //{
+            //    listBox1.Items.Add(orden.NumOrdenFabricacion.ToString());
+            //}
 
         }
 
@@ -83,35 +83,35 @@ namespace JB_Formulacion
 
         private async void btnStock_ClickAsync(object sender, EventArgs e)
         {
-            DataTransferenciaStock data = new DataTransferenciaStock
-            {
-                CodBodegaDesde = "PROD1CAP",
-                CodBodegaHasta = "PSJ1",
-                DocNumOF = "1304",
-                Lineas = new List<Linea>()
-                {
-                    new Linea()
-                    {
-                        CodArticulo="11000064",
-                        Lotes=new List<CantidadPorLote>()
-                        {
-                            new CantidadPorLote()
-                            {
-                                Lote="JB-221125150335",
-                                Cantidad=36.93
-                            }
+            //DataTransferenciaStock data = new DataTransferenciaStock
+            //{
+            //    CodBodegaDesde = "PROD1CAP",
+            //    CodBodegaHasta = "PSJ1",
+            //    DocNumOF = "1304",
+            //    Lineas = new List<Linea>()
+            //    {
+            //        new Linea()
+            //        {
+            //            CodArticulo="11000064",
+            //            Lotes=new List<CantidadPorLote>()
+            //            {
+            //                new CantidadPorLote()
+            //                {
+            //                    Lote="JB-221125150335",
+            //                    Cantidad=36.93
+            //                }
 
-                        }
-                    }
-                }
-            };
-            ResponseDataTransferenciaStock response = new ResponseDataTransferenciaStock();
-            Reply reply = new Reply();
-            reply = await apiController.PostTransferenciaStock<ResponseDataTransferenciaStock>(data);
-            response = (ResponseDataTransferenciaStock)reply.Data;
-            MessageBox.Show(reply.StatusCode);
-            listBox1.Items.Clear();
-            listBox1.Items.Add(response.Id + " " + response.DocNum + " " + response.Error);
+            //            }
+            //        }
+            //    }
+            //};
+            //ResponseDataTransferenciaStock response = new ResponseDataTransferenciaStock();
+            //Reply reply = new Reply();
+            //reply = await apiController.PostTransferenciaStock<ResponseDataTransferenciaStock>(data);
+            //response = (ResponseDataTransferenciaStock)reply.Data;
+            //MessageBox.Show(reply.StatusCode);
+            //listBox1.Items.Clear();
+            //listBox1.Items.Add(response.Id + " " + response.DocNum + " " + response.Error);
 
         }
 
@@ -201,7 +201,7 @@ namespace JB_Formulacion
 
             using (var context = new ApplicationDbContext())
             {
-                context.Ordenes.Add(orden);
+                // context.Ordenes.Add(orden);
 
                 await context.SaveChangesAsync();
                 MessageBox.Show("guardado exitoso!");
@@ -211,40 +211,143 @@ namespace JB_Formulacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OrdenComponentes orden = new OrdenComponentes();
-            using(var context = new ApplicationDbContext()) 
+            //OrdenComponentes orden = new OrdenComponentes();
+            //using(var context = new ApplicationDbContext()) 
+            //{
+            //    //orden = context.Ordenes
+            //    //.Include(o => o.Componentes.Select(c => (c as 'Lotes').CantidadPorLote)
+            //    //.FirstOrDefault(o => o.IdOf == 41648);
+
+            //    //var ordenConComponentesYCantidadesLotes = context.Ordenes
+            //    //.Include(o => o.Componentes.Select(c => c.CantidadesPorLote))
+            //    //.FirstOrDefault(o => o.IdOf == 41648);
+
+            //    orden = context.Ordenes
+            //    .Include(o => o.Componentes)
+            //    .ThenInclude(l => l.CantidadesPorLote)
+            //    .FirstOrDefault(o => o.IdOf == 41648);
+            //}
+
+            //listBox1.Items.Clear();
+            ////listBox1.Items.Add(orden.Componentes)
+            //foreach (Componente componente in orden.Componentes)
+            //{
+            //    listBox1.Items.Add(componente.CodigoArticulo.ToString() + " UNIDAD: " + componente.UnidadMedida + " " + componente.Descripcion.ToString());
+            //    foreach (CantidadPorLote lote in componente.CantidadesPorLote)
+            //    {
+            //        listBox1.Items.Add(lote.Lote.ToString() + " " + lote.Cantidad.ToString());
+            //    }
+            //    listBox1.Items.Add(componente.CantidadPesada.ToString());
+            //   // balanza = options.EscogerBalanza(componente);
+            //   // listBox1.Items.Add("Numero de balanza: " + balanza.NumeroBalanza.ToString());
+            //    listBox1.Items.Add("Numero de lotes: " + componente.CantidadesPorLote.Count);
+
+
+            //}
+
+        }
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            string respuesta = await options.DevolverOFs();
+            string[] ordenes = respuesta.Split(',');
+            foreach (string str in ordenes)
             {
-                //orden = context.Ordenes
-                //.Include(o => o.Componentes.Select(c => (c as 'Lotes').CantidadPorLote)
-                //.FirstOrDefault(o => o.IdOf == 41648);
-
-                //var ordenConComponentesYCantidadesLotes = context.Ordenes
-                //.Include(o => o.Componentes.Select(c => c.CantidadesPorLote))
-                //.FirstOrDefault(o => o.IdOf == 41648);
-
-                orden = context.Ordenes
-                .Include(o => o.Componentes)
-                .ThenInclude(l => l.CantidadesPorLote)
-                .FirstOrDefault(o => o.IdOf == 41648);
+                listBox1.Items.Add(str);
             }
+        }
 
-            listBox1.Items.Clear();
-            //listBox1.Items.Add(orden.Componentes)
-            foreach (Componente componente in orden.Componentes)
+        private async void button4_Click(object sender, EventArgs e)
+        {
+            await DevoLverComponentes(txtNumeroOrden.Text);
+        }
+
+        public async Task DevoLverComponentes(string idof)
+        {
+            try
             {
-                listBox1.Items.Add(componente.CodigoArticulo.ToString() + " UNIDAD: " + componente.UnidadMedida + " " + componente.Descripcion.ToString());
-                foreach (CantidadPorLote lote in componente.CantidadesPorLote)
+                List<string> roles = new List<string>();
+                Reply reply = new Reply();
+                string json = await apiController.ObtenerOrdenes(idof);
+                OrdenFabricacion orden = new OrdenFabricacion();
+                MateriaPrima materia = new MateriaPrima();
+                Transferencia transferencia = new Transferencia();
+                CantidadPorLote lote = new CantidadPorLote();
+
+                dynamic jsonData = JsonConvert.DeserializeObject(json);
+                listBox1.Items.Add("NumeroOrdenFabricacion:" + jsonData.NumOrdenFabricacion.ToString());
+                orden.NumOrdenFabricacion = jsonData.NumOrdenFabricacion;
+                orden.CodigoArticulo = jsonData.CodArticulo;
+                orden.Descripcion = jsonData.Descripcion;
+                transferencia.DocNumOf = jsonData.IdOf;
+                transferencia.CodBodegaDesde = jsonData.BodegaDesde;
+                transferencia.CodBodegaHasta = jsonData.BodegaHasta;
+                transferencia.Estado = "Pendiente";
+                orden.CantidadesPorLote = new List<CantidadPorLote>();
+                transferencia.CantidadesPorLote = new List<CantidadPorLote>();
+                using (var context = new ApplicationDbContext())
                 {
-                    listBox1.Items.Add(lote.Lote.ToString() + " " + lote.Cantidad.ToString());
+                    foreach (dynamic item in jsonData.Componentes)
+                    {
+                        listBox1.Items.Add("CodigoArticulo:" + item.CodigoArticulo);
+                        materia = new MateriaPrima();
+                        materia.Codigo = item.CodigoArticulo;
+                        materia.UnidadMedida = item.UnidadMedida;
+                        materia.Descripcion = item.Descripcion;
+                        materia.CantidadesPorLote = new List<CantidadPorLote>();
+                        foreach (dynamic i in item.CantidadesPorLote)
+                        {
+                            listBox1.Items.Add("Lote: " + i.Lote);
+                            lote = new CantidadPorLote();
+                            lote.Lote = i.Lote;
+                            lote.Cantidad = i.Cantidad;
+                            lote.CantidadPesada = 0;
+                            lote.CantidadTotal = item.CantidadTotal;
+                            orden.CantidadesPorLote.Add(lote);
+
+                            materia.CantidadesPorLote.Add(lote);
+
+                            transferencia.CantidadesPorLote.Add(lote);
+
+                            context.Lotes.Add(lote);
+
+
+                        }
+                        context.Materias.Add(materia);
+                    }
+
+                    context.Ordenes.Add(orden);
+                    context.Transferencias.Add(transferencia);
+
+                    await context.SaveChangesAsync();
+                    MessageBox.Show("guardado exitoso");
                 }
-                listBox1.Items.Add(componente.CantidadPesada.ToString());
-               // balanza = options.EscogerBalanza(componente);
-               // listBox1.Items.Add("Numero de balanza: " + balanza.NumeroBalanza.ToString());
-                listBox1.Items.Add("Numero de lotes: " + componente.CantidadesPorLote.Count);
-
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private async void button5_Click(object sender, EventArgs e)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                Transferencia transferencia = context.Transferencias.Where(s => s.DocNumOf == int.Parse(txtNumeroOrden.Text)).FirstOrDefault();
+                List<CantidadPorLote> lotes = await context.Lotes.Where(s => s.Transferencia.DocNumOf == int.Parse(txtNumeroOrden.Text))
+                    .Include(s => s.MateriaPrima)
+                    .ToListAsync();
+
+                foreach (CantidadPorLote lote in lotes)
+                {
+                    listBox1.Items.Add(lote.MateriaPrima.Codigo);
+                    listBox1.Items.Add(lote.Lote);
+                }
+                listBox1.Items.Add(lotes.Count);
+
+                List<MateriaPrima> materias= await context.Materias.Where(s=>s.CantidadesPorLote)
+            }
         }
     }
 }

@@ -94,7 +94,7 @@ namespace JB_Formulacion.Helper
                     respuesta = await options.DevolverOFs();
                     break;
                 case 2:
-                    addresses = await options.DevolverOFsPorArticulo("45100052");
+                    //addresses = await options.DevolverOFsPorArticulo("45100052");
                     break;
                 case 3:
                     //addresses = await options.DevolverCantidadMPsPorOF("10009132");

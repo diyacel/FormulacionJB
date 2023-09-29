@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace JB_Formulacion.Models
 {
-    public class MateriaPrima
+    public class Transferencia
     {
-        public string Codigo { get; set; }
-        public string UnidadMedida { get; set; }
-        public string Descripcion { get; set; }
+        public int DocNumOf { get; set; }
+        public string CodBodegaDesde { get; set; }
+        public string CodBodegaHasta { get; set; }
+        public string Estado { get; set; }
         public List<CantidadPorLote> CantidadesPorLote { get; set; }
     }
 }

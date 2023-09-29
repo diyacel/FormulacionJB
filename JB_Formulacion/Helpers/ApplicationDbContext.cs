@@ -22,8 +22,9 @@ namespace JB_Formulacion.Helper
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         }
-        public DbSet<OrdenComponentes> Ordenes { get; set; }
-        public DbSet<Componente> Componentes { get; set; }
+        public DbSet<OrdenFabricacion> Ordenes { get; set; }
+        public DbSet<MateriaPrima> Materias { get; set; }
         public DbSet<CantidadPorLote> Lotes { get; set; }
+        public DbSet<Transferencia> Transferencias { get; set; }
     }
 }

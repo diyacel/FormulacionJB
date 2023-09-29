@@ -13,6 +13,10 @@ namespace JB_Formulacion.Models
         public int Id { get; set; }
         public string Lote { get; set; }
         public double Cantidad { get; set; }
-        public double CantidadPesada { get; set; } = 0;
+        public double CantidadPesada { get; set; }
+        public double CantidadTotal { get; set; }
+        public OrdenFabricacion OrdenFabricacion { get; set; }
+        public MateriaPrima MateriaPrima { get; set; }
+        public Transferencia Transferencia { get; set; }
     }
 }

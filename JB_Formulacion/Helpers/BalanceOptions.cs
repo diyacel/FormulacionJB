@@ -31,39 +31,38 @@ namespace JB_Formulacion.Helpers
         /// </summary>
         public async Task<string> DevolverOFs()
         {
-            List<OrdenFabricacion> ordenes = new List<OrdenFabricacion>();
-            List<string> numerosOrdenes = new List<string>();
-            string linea_numeroOrdenenes = string.Empty;
-            Reply reply = new Reply();
-            reply = await apiController.GetOrdenesFabricacion<List<OrdenFabricacion>>();
-            ordenes = (List<OrdenFabricacion>)reply.Data;
-            foreach (var orden in ordenes)
+            dynamic jsonData=JsonConvert.DeserializeObject(await apiController.GetOFs());
+            string respuesta = string.Empty;
+            foreach(dynamic item in jsonData)
             {
-                numerosOrdenes.Add(orden.NumOrdenFabricacion.ToString());
-                linea_numeroOrdenenes = linea_numeroOrdenenes + orden.NumOrdenFabricacion.ToString() +
-                    "-"+orden.Descripcion.Substring(1,15)+",";
+                respuesta=respuesta+item.NumOrdenFabricacion.ToString()+
+                    "-" + item.Descripcion.ToString().Substring(1, 15) + ",";
             }
 
-            return linea_numeroOrdenenes;
+
+            return respuesta;
+
 
         }
-        public async Task<List<string>> DevolverOFsPorArticulo(string articulo)
+        public async Task<string> DevolverOFsPorArticulo(string articulo)
         {
-            List<OrdenFabricacion> ordenes = new List<OrdenFabricacion>();
-            List<string> numerosOrdenes = new List<string>();
-            Reply reply = new Reply();
-            reply = await apiController.GetOrdenesFabricacion<List<OrdenFabricacion>>();
-            ordenes = (List<OrdenFabricacion>)reply.Data;
-            foreach (var orden in ordenes)
-            {
-                if (orden.CodigoArticulo.Equals(articulo))
-                {
-                    numerosOrdenes.Add(orden.NumOrdenFabricacion.ToString());
-                }
 
-            }
+            return "";
+            //List<OrdenFabricacion> ordenes = new List<OrdenFabricacion>();
+            //List<string> numerosOrdenes = new List<string>();
+            //Reply reply = new Reply();
+            //reply = await apiController.GetOrdenesFabricacion<List<OrdenFabricacion>>();
+            //ordenes = (List<OrdenFabricacion>)reply.Data;
+            //foreach (var orden in ordenes)
+            //{
+            //    if (orden.CodigoArticulo.Equals(articulo))
+            //    {
+            //        numerosOrdenes.Add(orden.NumOrdenFabricacion.ToString());
+            //    }
 
-            return numerosOrdenes;
+            //}
+
+            //return numerosOrdenes;
         }
         public async Task<string> DevolverCantidadMPsPorOF(string of)
         {
@@ -285,9 +284,6 @@ namespace JB_Formulacion.Helpers
                 {
                     int numLotes=componente.CantidadesPorLote.Count();
                     Balanza balanza = EscogerBalanza(componente);
-
-                    
-                    
 
                 }
             }

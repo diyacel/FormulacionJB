@@ -17,10 +17,10 @@ namespace JB_Formulacion.Controllers
     {
         string baseURL = "http://services.jbp.com.ec/api";
         string baseURLTest= "http://test.jbp.com.ec/api";
-        public async Task<Reply>GetOrdenesFabricacion<T>()
+        public async Task<String>GetOFs()
         {
            var url = $"{baseURL}/of/getOfLiberadasPesaje";
-           Reply reply = new Reply();
+            string respuesta = string.Empty;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync(url))
@@ -28,17 +28,46 @@ namespace JB_Formulacion.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        reply.Data = JsonConvert.DeserializeObject<T>(apiResponse);
-                        reply.StatusCode = response.StatusCode.ToString();
+                        respuesta= apiResponse;
                     }
 
                 }
             }
 
-            return reply;
+            return respuesta;
         }
 
-        public async Task<Reply>GetMateriaPrima<T>()
+        public async Task<string> ObtenerOrdenes(string NumeroOrdenFabricacion)
+        {
+            var url = $"{baseURL}/of/getComponentesOf/{NumeroOrdenFabricacion}";
+            // Realizar la solicitud GET al API
+            string respuesta = string.Empty;
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    using (var response = await httpClient.GetAsync(url))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string apiResponse = await response.Content.ReadAsStringAsync();
+                            respuesta = apiResponse;
+                        }
+
+                    }
+                }
+            }
+            catch (JsonSerializationException ex)
+            {
+
+            }
+
+            return respuesta;
+
+        }
+
+
+    public async Task<Reply>GetMateriaPrima<T>()
         {
             var url = $"{baseURL}/catalogos/getCatalogoPesaje";
             Reply reply = new Reply();

@@ -11,5 +11,6 @@ namespace JB_Formulacion.Models
         public int NumOrdenFabricacion { get; set; }
         public string CodigoArticulo { get; set; }
         public string Descripcion { get; set; }
+        public List<CantidadPorLote> CantidadesPorLote { get; set; }
     }
 }
