@@ -1,4 +1,4 @@
-namespace JB_Formulacion
+namespace RecepciónPesosJamesBrown
 {
     internal static class Program
     {

@@ -1,0 +1,81 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\preci\\Documents\\James Brown\\12-04-2024\\Recepci\u00F3nPesosJamesBrown-cambios - copia\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{954CDF85-7C22-426B-BCCD-6192CF24DBBB}|Recepci\u00F3nPesosJamesBrown.csproj|c:\\users\\preci\\documents\\james brown\\12-04-2024\\recepci\u00F3npesosjamesbrown-cambios - copia\\helpers\\balanceoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{954CDF85-7C22-426B-BCCD-6192CF24DBBB}|Recepci\u00F3nPesosJamesBrown.csproj|solutionrelative:helpers\\balanceoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{954CDF85-7C22-426B-BCCD-6192CF24DBBB}|Recepci\u00F3nPesosJamesBrown.csproj|c:\\users\\preci\\documents\\james brown\\12-04-2024\\recepci\u00F3npesosjamesbrown-cambios - copia\\helpers\\balancecomunication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{954CDF85-7C22-426B-BCCD-6192CF24DBBB}|Recepci\u00F3nPesosJamesBrown.csproj|solutionrelative:helpers\\balancecomunication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BalanceOptions.cs",
+              "DocumentMoniker": "C:\\Users\\preci\\Documents\\James Brown\\12-04-2024\\Recepci\u00F3nPesosJamesBrown-cambios - copia\\Helpers\\BalanceOptions.cs",
+              "RelativeDocumentMoniker": "Helpers\\BalanceOptions.cs",
+              "ToolTip": "C:\\Users\\preci\\Documents\\James Brown\\12-04-2024\\Recepci\u00F3nPesosJamesBrown-cambios - copia\\Helpers\\BalanceOptions.cs",
+              "RelativeToolTip": "Helpers\\BalanceOptions.cs",
+              "ViewState": "AQIAAJYAAAAAAAAAAAAvwKEAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-22T04:47:49.335Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BalanceComunication.cs",
+              "DocumentMoniker": "C:\\Users\\preci\\Documents\\James Brown\\12-04-2024\\Recepci\u00F3nPesosJamesBrown-cambios - copia\\Helpers\\BalanceComunication.cs",
+              "RelativeDocumentMoniker": "Helpers\\BalanceComunication.cs",
+              "ToolTip": "C:\\Users\\preci\\Documents\\James Brown\\12-04-2024\\Recepci\u00F3nPesosJamesBrown-cambios - copia\\Helpers\\BalanceComunication.cs",
+              "RelativeToolTip": "Helpers\\BalanceComunication.cs",
+              "ViewState": "AQIAAJ8AAAAAAAAAAAAewNAAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-22T04:48:16.804Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

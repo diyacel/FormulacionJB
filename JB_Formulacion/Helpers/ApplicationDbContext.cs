@@ -1,30 +1,25 @@
-﻿using JB_Formulacion.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using RecepciónPesosJamesBrown.Models.DAO;
 using System.Configuration;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
-namespace JB_Formulacion.Helper
+namespace RecepciónPesosJamesBrown.Helpers
 {
     public class ApplicationDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["PrecitrolConnection"].ConnectionString);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
         }
-        public DbSet<OrdenFabricacion> Ordenes { get; set; }
-        public DbSet<MateriaPrima> Materias { get; set; }
-        public DbSet<CantidadPorLote> Lotes { get; set; }
-        public DbSet<Transferencia> Transferencias { get; set; }
+        public DbSet<TransferenciaDAO> Transferencias { get; set; }
+        public DbSet<LineaDAO> Lineas { get; set; }
+        public DbSet<LoteDAO> Lotes { get; set; }
     }
 }
